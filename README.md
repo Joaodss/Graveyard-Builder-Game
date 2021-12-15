@@ -6,23 +6,24 @@ The final project for Ironhack Web Dev Bootcamp.
 
 ## Table Of Contents
 
-- [Summary](#summary)
-- [Table Of Contents](#table-of-contents)
-- [About The Project](#about-the-project)
-  - [Project Requirements](#project-requirements)
-  - [The game](#the-game)
-  - [Built With](#built-with)
-- [Getting Started](#getting-started)
-  - [Setup - Frontend Application](#setup---frontend-application)
-  - [Setup - Backend Microservices](#setup---backend-microservices)
-- [Frontend Application](#frontend-application)
-- [Backend API](#backend-api)
-  - [Security](#security)
-  - [Routes](#routes)
-  - [DTOs](#dtos)
-- [Project Diagrams](#project-diagrams)
-- [Road Map](#road-map)
-- [Contacts](#contacts)
+- [Graveyard Builder Game](#graveyard-builder-game)
+  - [Summary](#summary)
+  - [Table Of Contents](#table-of-contents)
+  - [About The Project](#about-the-project)
+    - [Project Requirements](#project-requirements)
+    - [The game](#the-game)
+    - [Built With](#built-with)
+  - [Getting Started](#getting-started)
+    - [Setup - Frontend Application](#setup---frontend-application)
+    - [Setup - Backend Microservices](#setup---backend-microservices)
+  - [Frontend Application](#frontend-application)
+  - [Backend API](#backend-api)
+    - [Security](#security)
+    - [Routes](#routes)
+    - [Payloads](#payloads)
+  - [Project Diagrams](#project-diagrams)
+  - [Road Map](#road-map)
+  - [Contacts](#contacts)
 
 ## About The Project
 
@@ -110,7 +111,7 @@ The project contains separate microservices for the backend and a client fronten
   - <https://github.com/Joaodss/Graveyard-Builder-Game-Auth-Service>
   - <https://github.com/EN-IH-WDPT-JUN21/CSharks-BackEndHomework>
 
-- Setup the following database name and user, or setup your own database by changing the values in the `application.properties` file
+- Setup the following database name and user, or set up your database by changing the values in the `application.properties` file
 
 ```sql
 CREATE DATABASE GraveyardBuilder;
@@ -142,7 +143,7 @@ This project implements a [JWT](https://jwt.io/) authentication mechanism. The J
 
 To authenticate the user/admin manually (with Postman or another tool) you must follow these steps:
 
-- To login with the pretended profile send a post request to the login page: [http://localhost:8000/login](http://localhost:8000/login);
+- To log in with the pretended profile send a post request to the login page: [http://localhost:8000/login](http://localhost:8000/login);
 - In the body of the request add the `x-www-form-urlencoded` format and add the following values:
   | key | value |
   | ---------- | ----------------- |
@@ -322,7 +323,7 @@ Opponent Selection service:
 }
 ```
 
-### NewPasswordDTO
+#### NewPasswordDTO
 
 ```javascript
 {
