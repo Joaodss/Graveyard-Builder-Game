@@ -21,7 +21,7 @@ The final project for Ironhack Web Dev Bootcamp.
   - [Routes](#routes)
   - [DTOs](#dtos)
 - [Project Diagrams](#project-diagrams)
-- [Roadmap](#roadmap)
+- [Road Map](#road-map)
 - [Contacts](#contacts)
 
 ## About The Project
@@ -161,7 +161,7 @@ All routes available are managed by the Gateway Service on port 8000. For more i
 
 #### Public Access
 
-**SignIn service:**
+SignIn service:
 
 | Route Type | Route                            | Description                                                                                                   |
 | :--------: | -------------------------------- | ------------------------------------------------------------------------------------------------------------- |
@@ -169,7 +169,7 @@ All routes available are managed by the Gateway Service on port 8000. For more i
 |    POST    | /api/v1/signIn/validate/email    | Checks if username is valid (does not exist), returns boolean. Requires body: [**UsernameDTO**](#usernamedto) |
 |    POST    | /api/v1/signIn/register          | Checks if email is valid (does not exist), returns boolean. Requires body: [**EmailDTO**](#emaildto)          |
 
-**Auth service:**
+Auth service:
 
 | Route Type | Route  | Description                                                   |
 | :--------: | ------ | ------------------------------------------------------------- |
@@ -177,7 +177,7 @@ All routes available are managed by the Gateway Service on port 8000. For more i
 
 #### Registered User Access
 
-**Profile service:**
+Profile service:
 
 | Route Type | Route                            | Description                                                                                                              |
 | :--------: | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
@@ -187,7 +187,7 @@ All routes available are managed by the Gateway Service on port 8000. For more i
 |    POST    | /api/v1/profiles/update/all      | Updates user information of authenticated user, returns [**UserDTO**](#userdto). Requires body: [**UserDTO**](#userdto). |
 |    POST    | /api/v1/profiles/update/password | Updates user password of authenticated user. Requires body: [**PasswordChangeDTO**](#passwordchangedto).                 |
 
-**Party Manager service:**
+Party Manager service:
 
 | Route Type | Route                               | Description                                                                                                                                                 |
 | :--------: | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -200,7 +200,7 @@ All routes available are managed by the Gateway Service on port 8000. For more i
 |    PUT     | /api/v1/party-manager/revive/{{id}} | Revives a character of authenticated user by character id, returns [**CharacterDTO**](#characterdto). Requires id: long.                                    |
 |   DELETE   | /api/v1/party-manager/delete/{{id}} | Deletes a character of authenticated user by character id. Requires id: long.                                                                               |
 
-**Battle service:**
+Battle service:
 
 | Route Type | Route                                   | Description                                                                                                                                               |
 | :--------: | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -211,7 +211,41 @@ All routes available are managed by the Gateway Service on port 8000. For more i
 
 #### Admin Access
 
-### DTOs
+User Model service:
+
+| Route Type | Route                                      | Description                                                                                                                               |
+| :--------: | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+|    GET     | /api/v1/users/all                          | Returns all users' details [**UserDTO**](#userdto).                                                                                       |
+|    GET     | /api/v1/users/id/{{id}}                    | Returns [**UserDTO**](#userdto) by id. Requires id: long.                                                                                 |
+|    GET     | /api/v1/users/auth/{{username}}            | Returns [**UserAuthDTO**](#userauthdto) by username. Requires username: string.                                                           |
+|    GET     | /api/v1/users/username/{{username}}        | Returns [**UserDTO**](#userdto) by username. Requires username: string.                                                                   |
+|    GET     | /api/v1/users/email/{{email}}              | Returns [**UserDTO**](#userdto) by email. Requires email: string.                                                                         |
+|    GET     | /api/v1/users/partyLevel                   | Returns list of usernames between min and max party level. Request parameters: min(optional): int, max(optional): int.                    |
+|    POST    | /api/v1/users/register                     | Registers new user, returns [**UserDTO**](#userdto). Requires body: [**RegisterUserDTO**](#registeruserdto).                              |
+|    PUT     | /api/v1/users/update/{{username}}          | Updates user information by username, returns [**UserDTO**](#userdto). Requires username: string. Requires body: [**UserDTO**](#userdto). |
+|    PUT     | /api/v1/users/update/{{username}}/password | Updates user password by username. Requires username: string. Requires body: [**NewPasswordDTO**](#newpassworddto) .                      |
+|   DELETE   | /api/v1/users/delete/{{username}}          | Deletes user by username. Requires username: string.                                                                                      |
+
+Character Model service:
+
+| Route Type | Route                                     | Description                                                                                                                   |
+| :--------: | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+|    GET     | /api/v1/characters/all                    | Return all characters ([**CharacterDTO[]**](#characterdto)).                                                                  |
+|    GET     | /api/v1/characters/id/{{id}}              | Return character by id. Requires id: long.                                                                                    |
+|    GET     | /api/v1/characters/party/{{username}}     | Return party ([**CharacterDTO[]**](#characterdto)) by user username. Requires username: string.                               |
+|    GET     | /api/v1/characters/graveyard/{{username}} | Return graveyard ([**CharacterDTO[]**](#characterdto)) by user username. Requires username: string.                           |
+|    POST    | /api/v1/characters/create                 | Creates new character, returns [**CharacterDTO**](#characterdto). Requires body: [**NewCharacterDTO**](#newcharacterdto).     |
+|    PUT     | /api/v1/characters/update                 | Updates a character information, returns [**CharacterDTO**](#characterdto). Requires body: [**CharacterDTO**](#characterdto). |
+|    PUT     | /api/v1/characters/update/levelUp         | Levels up a character, returns [**CharacterDTO**](#characterdto). Requires body: [**LevelUpDTO**](#levelupdto).               |
+|   DELETE   | /api/v1/characters/delete/{{id}}          | Deletes a character by id. Requires id: long.                                                                                 |
+
+Opponent Selection service:
+
+| Route Type | Route                           | Description                                                                                                                    |
+| :--------: | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+|    GET     | /api/v1/opponent/random/{level} | Retrieves an opponent team of a given level, returns [**CharacterDTO[]**](#characterdto). Request parameters: partyLevel: int. |
+
+### Payloads
 
 #### RegisterUserDTO
 
@@ -253,6 +287,16 @@ All routes available are managed by the Gateway Service on port 8000. For more i
 }
 ```
 
+#### UserAuthDTO
+
+```javascript
+{
+  "username": string,
+  "password": string,
+  "roles": string[]
+}
+```
+
 #### ExperienceDTO
 
 ```javascript
@@ -275,6 +319,25 @@ All routes available are managed by the Gateway Service on port 8000. For more i
 {
   "oldPassword": string,
   "newPassword": string
+}
+```
+
+### NewPasswordDTO
+
+```javascript
+{
+  "newPassword": string
+}
+```
+
+#### NewCharacterDTO
+
+```javascript
+{
+  "userUsername": string,
+  "type": string,
+  "name": string,
+  "pictureURL": string
 }
 ```
 
@@ -301,17 +364,6 @@ All routes available are managed by the Gateway Service on port 8000. For more i
   "maxMana": int,
   "currentMana": int,
   "intelligence": int
-}
-```
-
-#### NewCharacterDTO
-
-```javascript
-{
-  "userUsername": string,
-  "type": string,
-  "name": string,
-  "pictureURL": string
 }
 ```
 
@@ -344,7 +396,7 @@ All routes available are managed by the Gateway Service on port 8000. For more i
 
 ![Microservices Endpoints](diagrams/Microservices%20Endpoints.png)
 
-## Roadmap
+## Road Map
 
 - Complete backend testing;
 - Refactor JWT security in microservices;
