@@ -126,6 +126,30 @@ FLUSH PRIVILEGES;
 
 ## Frontend Application
 
+|               Home page                |                Home page mobile                 |
+| :------------------------------------: | :---------------------------------------------: |
+| ![Main page](screenshots/homepage.png) | ![Main page mobile](screenshots/homepage_m.png) |
+
+|             Menu page              |              Menu page mobile               |
+| :--------------------------------: | :-----------------------------------------: |
+| ![Menu page](screenshots/menu.png) | ![Menu page mobile](screenshots/menu-m.png) |
+
+|              Party page              |             Party page mobile grid              | Party page mobile details                       |
+| :----------------------------------: | :---------------------------------------------: | ----------------------------------------------- |
+| ![Party page](screenshots/party.png) | ![Party page mobile1](screenshots/party-m2.png) | ![Party page mobile1](screenshots/party-m1.png) |
+
+|             Graveyard page              |               Graveyard page mobile               |
+| :-------------------------------------: | :-----------------------------------------------: |
+| ![Main page](screenshots/graveyard.png) | ![Main page mobile](screenshots/graveyard-m1.png) |
+
+|         Battle selection page         |          Battle selection page mobile          |
+| :-----------------------------------: | :--------------------------------------------: |
+| ![Main page](screenshots/battle1.png) | ![Main page mobile](screenshots/battle1_m.png) |
+
+|              Battle page              |               Battle page mobile               |
+| :-----------------------------------: | :--------------------------------------------: |
+| ![Main page](screenshots/battle2.png) | ![Main page mobile](screenshots/battle2_m.png) |
+
 ## Backend API
 
 ### Security
