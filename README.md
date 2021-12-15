@@ -6,6 +6,24 @@ The final project for Ironhack Web Dev Bootcamp.
 
 ## Table Of Contents
 
+- [Summary](#summary)
+- [Table Of Contents](#table-of-contents)
+- [About The Project](#about-the-project)
+  - [Project Requirements](#project-requirements)
+  - [The game](#the-game)
+  - [Built With](#built-with)
+- [Getting Started](#getting-started)
+  - [Setup - Frontend Application](#setup---frontend-application)
+  - [Setup - Backend Microservices](#setup---backend-microservices)
+- [Frontend Application](#frontend-application)
+- [Backend API](#backend-api)
+  - [Security](#security)
+  - [Routes](#routes)
+  - [DTOs](#dtos)
+- [Project Diagrams](#project-diagrams)
+- [Roadmap](#roadmap)
+- [Contacts](#contacts)
+
 ## About The Project
 
 This project was created as the final project for the Ironhack Web Dev Bootcamp. It's a web application game based on one of my first java group projects and inspired by games like pokemon and RPG games with some roguelike elements.
@@ -38,7 +56,7 @@ Your project must meet all of the requirements below:
 
 Graveyard Builder Game consists of a single-player browser game. The players must build their party of warriors, archers, and mages, defeat other players, gain gold, and level up. Each character type has its unique stats and abilities. When characters die, they will be moved to the graveyard. To add them back to the party, the player must revive them with gold.
 
-**The game is temporarily available at http://graveyardbuildergame.site**
+**The game is temporarily available at <http://graveyardbuildergame.site>**
 
 #### Features
 
@@ -69,20 +87,29 @@ Technologies used in this project:
 
 The project contains separate microservices for the backend and a client frontend part. To locally run the web application all parts must be operational.
 
+### Setup - Frontend Application
+
+- Clone the frontend repository: <https://github.com/Joaodss/Graveyard-Builder-Game-Client>
+- Install the dependencies: `npm i`
+- Run the following command to start the frontend application: `npm start`
+- The application will be available at [http://localhost:4200/](http://localhost:4200/)
+
 ### Setup - Backend Microservices
 
 - Clone the backend repositories:
-  - https://github.com/Joaodss/Graveyard-Builder-Game-Discovery-Service
-  - https://github.com/Joaodss/Graveyard-Builder-Game-Gateway-Service
-  - https://github.com/Joaodss/Graveyard-Builder-Game-User-Model-Service
-  - https://github.com/Joaodss/Graveyard-Builder-Game-Character-Model-Service
-  - https://github.com/Joaodss/Graveyard-Builder-Game-Opponent-Selection-Service
-  - https://github.com/Joaodss/Graveyard-Builder-Game-Battle-Service
-  - https://github.com/Joaodss/Graveyard-Builder-Game-Party-Manager-Service
-  - https://github.com/Joaodss/Graveyard-Builder-Game-Profile-Service
-  - https://github.com/Joaodss/Graveyard-Builder-Game-SignIn-Service
-  - https://github.com/Joaodss/Graveyard-Builder-Game-Auth-Service
-  - https://github.com/EN-IH-WDPT-JUN21/CSharks-BackEndHomework
+
+  - <https://github.com/Joaodss/Graveyard-Builder-Game-Discovery-Service>
+  - <https://github.com/Joaodss/Graveyard-Builder-Game-Gateway-Service>
+  - <https://github.com/Joaodss/Graveyard-Builder-Game-User-Model-Service>
+  - <https://github.com/Joaodss/Graveyard-Builder-Game-Character-Model-Service>
+  - <https://github.com/Joaodss/Graveyard-Builder-Game-Opponent-Selection-Service>
+  - <https://github.com/Joaodss/Graveyard-Builder-Game-Battle-Service>
+  - <https://github.com/Joaodss/Graveyard-Builder-Game-Party-Manager-Service>
+  - <https://github.com/Joaodss/Graveyard-Builder-Game-Profile-Service>
+  - <https://github.com/Joaodss/Graveyard-Builder-Game-SignIn-Service>
+  - <https://github.com/Joaodss/Graveyard-Builder-Game-Auth-Service>
+  - <https://github.com/EN-IH-WDPT-JUN21/CSharks-BackEndHomework>
+
 - Setup the following database name and user, or setup your own database by changing the values in the `application.properties` file
 
 ```sql
@@ -96,12 +123,7 @@ FLUSH PRIVILEGES;
 - Run the following command to start each spring application: `mvn spring-boot:run`, or by using an IDE like IntelliJ IDEA
 - The application will be available by using the gateway service at [http://localhost:8000/](http://localhost:8000/)
 
-### Setup - Frontend Application
-
-- Clone the frontend repository: https://github.com/Joaodss/Graveyard-Builder-Game-Client
-- Install the dependencies: `npm i`
-- Run the following command to start the frontend application: `npm start`
-- The application will be available at [http://localhost:4200/](http://localhost:4200/)
+## Frontend Application
 
 ## Backend API
 
@@ -135,17 +157,184 @@ To authenticate the user/admin manually (with Postman or another tool) you must 
 
 ### Routes
 
-All routes available are managed by the Gateway Service on port 8000. For more information on the specific microservices routes, please refer to the documentation of the microservices.
+All routes available are managed by the Gateway Service on port 8000. For more information on the specific microservices routes, please refer to the documentation of the microservice.
 
 #### Public Access
 
+**SignIn service:**
+
+| Route Type | Route                            | Description                                                                                                   |
+| :--------: | -------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+|    POST    | /api/v1/signIn/validate/username | Registers a new user, returns [**UserDTO**](#userdto). Requires body: [**RegisterUserDTO**](#registeruserdto) |
+|    POST    | /api/v1/signIn/validate/email    | Checks if username is valid (does not exist), returns boolean. Requires body: [**UsernameDTO**](#usernamedto) |
+|    POST    | /api/v1/signIn/register          | Checks if email is valid (does not exist), returns boolean. Requires body: [**EmailDTO**](#emaildto)          |
+
+**Auth service:**
+
+| Route Type | Route  | Description                                                   |
+| :--------: | ------ | ------------------------------------------------------------- |
+|    POST    | /login | User login. Check [Security](#security) for more information. |
+
 #### Registered User Access
+
+**Profile service:**
+
+| Route Type | Route                            | Description                                                                                                              |
+| :--------: | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+|    GET     | /api/v1/profiles/user            | Returns [**UserDTO**](#userdto) of authenticated user.                                                                   |
+|    GET     | /api/v1/profiles/experience      | Returns [**ExperienceDTO**](#experiencedto) of authenticated user.                                                       |
+|    GET     | /api/v1/profiles/gold            | Returns [**GoldDTO**](#golddto) of authenticated user.                                                                   |
+|    POST    | /api/v1/profiles/update/all      | Updates user information of authenticated user, returns [**UserDTO**](#userdto). Requires body: [**UserDTO**](#userdto). |
+|    POST    | /api/v1/profiles/update/password | Updates user password of authenticated user. Requires body: [**PasswordChangeDTO**](#passwordchangedto).                 |
+
+**Party Manager service:**
+
+| Route Type | Route                               | Description                                                                                                                                                 |
+| :--------: | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|    GET     | /api/v1/party-manager/party         | Returns party ([**CharacterDTO[]**](#characterdto)) of authenticated user.                                                                                  |
+|    GET     | /api/v1/party-manager/graveyard     | Returns graveyard ([**CharacterDTO[]**](#characterdto)) of authenticated user.                                                                              |
+|    GET     | /api/v1/party-manager/id/{{id}}     | Returns [**CharacterDTO**](#characterdto) of authenticated user by character id. Requires id: long.                                                         |
+|    POST    | /api/v1/party-manager/create        | Creates new character for authenticated user, returns [**CharacterDTO**](#characterdto). Requires body: [**NewCharacterDTO**](#newcharacterdto).            |
+|    PUT     | /api/v1/party-manager/level-up      | Levels up a character, returns [**CharacterDTO**](#characterdto). Requires body: [**LevelUpDTO**](#levelupdto).                                             |
+|    PUT     | /api/v1/party-manager/heal/{{id}}   | Heals a character of authenticated user by character id, returns [**CharacterDTO**](#characterdto). Requires id: long. Request parameters: healAmount: int. |
+|    PUT     | /api/v1/party-manager/revive/{{id}} | Revives a character of authenticated user by character id, returns [**CharacterDTO**](#characterdto). Requires id: long.                                    |
+|   DELETE   | /api/v1/party-manager/delete/{{id}} | Deletes a character of authenticated user by character id. Requires id: long.                                                                               |
+
+**Battle service:**
+
+| Route Type | Route                                   | Description                                                                                                                                               |
+| :--------: | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|    GET     | /api/v1/battle/opponents                | Retrieves an opponent team to battle, returns [**OpponentDTO**](#opponentdto).                                                                            |
+|    PUT     | /api/v1/battle/updateHealth/{{id}}      | Update character health by id, returns [**CharacterDTO**](#characterdto). Requires id: long. Request parameters: health: int.                             |
+|    PUT     | /api/v1/battle/addExperience/{{id}}     | Add experience to character by id, returns [**CharacterDTO**](#characterdto). Requires id: long. Request parameters: experience: long.                    |
+|    PUT     | /api/v1/battle/addUserExperienceAndGold | Add experience and gold to the authenticated user, returns [**UserDTO**](#userdto). Request parameters: experience(optional): long, gold(optional): long. |
 
 #### Admin Access
 
 ### DTOs
 
-## Frontend Application
+#### RegisterUserDTO
+
+```javascript
+{
+  "username": string,
+  "email": string,
+  "password": string
+}
+```
+
+#### UsernameDTO
+
+```javascript
+{
+  "username": string,
+}
+```
+
+#### EmailDTO
+
+```javascript
+{
+  "email": string,
+}
+```
+
+#### UserDTO
+
+```javascript
+{
+  "username": string,
+  "email": string,
+  "roles": string[],
+  "profilePictureUrl": string,
+  "experience": long,
+  "gold": long,
+  "partyLevel": int
+}
+```
+
+#### ExperienceDTO
+
+```javascript
+{
+  "experience": long,
+}
+```
+
+#### GoldDTO
+
+```javascript
+{
+  "gold": long,
+}
+```
+
+#### PasswordChangeDTO
+
+```javascript
+{
+  "oldPassword": string,
+  "newPassword": string
+}
+```
+
+#### CharacterDTO
+
+```javascript
+{
+  "id": long,
+  "userUsername": string,
+  "type": string,
+  "isAlive": boolean,
+  "deathTime": string,
+  "name": string,
+  "pictureURL": string,
+  "level": int,
+  "experience": long,
+  "maxHealth": int,
+  "currentHealth": int,
+  "passiveChance": double,
+  "maxStamina": int,
+  "currentStamina": int,
+  "strength": int,
+  "accuracy": int,
+  "maxMana": int,
+  "currentMana": int,
+  "intelligence": int
+}
+```
+
+#### NewCharacterDTO
+
+```javascript
+{
+  "userUsername": string,
+  "type": string,
+  "name": string,
+  "pictureURL": string
+}
+```
+
+#### LevelUpDTO
+
+```javascript
+{
+  "id": long,
+  "healthPoints": int,
+  "energyPoints": int,
+  "attackPoints": int
+}
+```
+
+#### OpponentDTO
+
+```javascript
+{
+  "username": string,
+  "profilePictureUrl": string,
+  "opponents": CharacterDTO[]
+}
+```
 
 ## Project Diagrams
 
