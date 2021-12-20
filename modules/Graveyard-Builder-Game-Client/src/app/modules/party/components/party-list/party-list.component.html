@@ -1,0 +1,49 @@
+<app-back-button class="back-button"
+  [ngClass]="{'hide-back-button': drawer.opened}" [routeName]="'menu'">
+</app-back-button>
+<mat-drawer-container>
+
+  <div class="container">
+
+    <div class="title">
+      <h2>Party</h2>
+      <img src="./../../../../../assets/images/party.svg" alt="party logo">
+    </div>
+
+
+    <div class="chracter-list">
+      <app-character-grid-item class="item-detail"
+        *ngFor="let partyMember of party" [character]="partyMember"
+        [type]="'character'"
+        [experienceToLvlUp]="requiredExperienceToLvlUp(partyMember)"
+        (click)="defineInfoType('party-details')"
+        (click)="selectCharacter(partyMember)" (click)="drawer.open()">
+      </app-character-grid-item>
+
+      <app-character-grid-item class="item-detail" *ngIf="party.length < 10"
+        [type]="'add'" (click)="defineInfoType('add')" (click)="drawer.open()">
+      </app-character-grid-item>
+
+    </div>
+  </div>
+
+  <mat-drawer #drawer class="sidenav" fixedInViewport [mode]="'side'"
+    position="end">
+
+    <app-back-button class="drawer-colse" (click)="drawer.close()"
+      [ngStyle]="{position:'absolute'}">
+    </app-back-button>
+
+    <app-character-details *ngIf="selectedInfoType === 'party-details'"
+      [character]='selectedCharacter'
+      [experienceToLvlUp]="requiredExperienceToLvlUp(selectedCharacter)"
+      [isAlive]=true (setSideNavTypeToAdd)="defineInfoType('add')">
+    </app-character-details>
+
+    <app-character-creator *ngIf="selectedInfoType === 'add'"
+      (setCreatedCharacter)="selectCharacter($event)"
+      (setSideNavTypeToDetails)="defineInfoType('party-details')">
+    </app-character-creator>
+
+  </mat-drawer>
+</mat-drawer-container>

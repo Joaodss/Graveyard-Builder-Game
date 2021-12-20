@@ -1,0 +1,41 @@
+<header
+  class="header-container d-flex flex-row justify-content-center align-content-center p-2">
+  <div
+    class="header-title d-flex flex-row justify-content-center align-content-center">
+    <img class="logo me-1" src="./../../../../assets/images/graveyard.png"
+      alt="Graveyard Builder logo">
+    <h1>Graveyard Builder Game</h1>
+  </div>
+</header>
+
+<nav class="d-flex flex-row align-items-center">
+  <div class="left ms-2 ms-sm-4 ms-md-5" *ngIf="isLoggedIn">
+    <div class="nav-item level d-flex flex-row align-items-center">
+      <p> LVL: {{level | number: '1.0-0'}} </p>
+    </div>
+    <div class="nav-item gold d-flex flex-row align-items-center">
+      <p>Gold: {{user.gold | number: '1.0-0'}}</p>
+      <mat-icon class="gold-coin ms-1">monetization_on</mat-icon>
+    </div>
+  </div>
+  <div class="" *ngIf="!isLoggedIn"></div>
+
+  <div class="right me-2 me-sm-4 me-md-5 d-flex flex-row">
+    <div
+      class="nav-item profile d-flex flex-row align-items-center justify-content-center"
+      (click)="goToProfile()" *ngIf="isLoggedIn">
+      <p class="profile-title"> Profile </p>
+      <mat-icon class="profile-circle ms-1">account_circle</mat-icon>
+    </div>
+    <div class="nav-item profile d-flex flex-row align-items-center border-0"
+      (click)="openHelpPage()" *ngIf=" isLoggedIn">
+      <mat-icon class="help-circle">help_outline</mat-icon>
+    </div>
+
+    <div class=" nav-item profile d-flex flex-row align-items-center"
+        *ngIf="!isLoggedIn" (click)="goToLogin()">
+        <p> Login </p>
+    </div>
+  </div>
+
+</nav>

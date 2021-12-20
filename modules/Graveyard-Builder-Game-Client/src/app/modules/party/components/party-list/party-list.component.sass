@@ -1,0 +1,52 @@
+.container
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  margin-top: 1rem
+  max-width: 1200px
+  background-color: #fff
+  margin-bottom: 2rem
+
+.title
+  margin: 1rem 0
+
+h2
+  display: inline
+  font-size: 2rem
+  vertical-align: middle
+  margin-right: 10px
+
+img
+  display: inline
+  width: 2.8rem
+  width: 2.8rem
+  vertical-align: middle
+
+.chracter-list
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  align-content: space-between
+  justify-content: center
+
+mat-drawer-container
+  background-color: #fff
+  width: 100%
+  height: calc(100vh - 6rem)
+
+mat-drawer
+  width: 33%
+  min-width: 20rem
+
+.drawer-colse
+  transform: scale(0.6) translateY(-4rem) translateX(14px)
+
+
+@media (max-width: 767px)
+  .hide-back-button
+    display: none
+
+  mat-drawer
+    width: 100%
+    min-width: 0

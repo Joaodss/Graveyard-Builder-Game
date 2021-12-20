@@ -1,0 +1,114 @@
+<div class="item" [ngStyle]="{'margin': (type === 'fighter') ? '3px' : ''}">
+
+  <div *ngIf="type === 'add'">
+    <div class=box>
+      <img class="add-item" src="./../../../../assets/images/plus-sign.svg"
+        alt="add sign">
+    </div>
+  </div>
+
+  <div *ngIf="type === 'character'">
+    <div class="box"
+      [ngStyle]="{'border': isSelected ? '3px solid green' : ''}">
+      <div>
+        <img src="{{character.pictureURL}}" alt="character profile picture"
+          onError="this.src='./../../../../../assets/images/white-square.jpg'">
+      </div>
+      <div class="hidden">
+        <p>
+          Hp: {{character.currentHealth}}/{{character.maxHealth}}
+        </p>
+        <p
+          *ngIf="character.type.valueOf() === 'WARRIOR' || character.type.valueOf() === 'ARCHER'">
+          Stamina: {{character.currentStamina}}
+        </p>
+        <p *ngIf="character.type.valueOf() === 'MAGE'">
+          Mana: {{character.currentMana}}
+        </p>
+        <p *ngIf="character.type.valueOf() === 'WARRIOR'">
+          Strength: {{character.strength}}
+        </p>
+        <p *ngIf="character.type.valueOf() === 'ARCHER'">
+          Accuracy: {{character.accuracy}}
+        </p>
+        <p *ngIf="character.type.valueOf() === 'MAGE'">
+          Intelligence: {{character.intelligence}}
+        </p>
+        <p>Lvl: {{character.level}}</p>
+        <div class="experience-bar-border">
+          <div class="experience-bar-fill" [ngStyle]="experiencePercentage">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-name">
+      <img src="{{iconMap.get(character.type)}}" alt="character type icon">
+      <p>{{character.name}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="type.valueOf() === 'grave'">
+    <div class=box>
+      <div>
+        <img src="{{graveMap.get(character.type)}}" alt="grave picture">
+      </div>
+      <div class="hidden">
+        <p>
+          Death date:
+          <br>
+          {{character.deathTime | date: 'dd/MM/yyyy'}}
+        </p>
+        <p>
+          Level: {{character.level}}
+        </p>
+      </div>
+    </div>
+    <div class="bottom-name">
+      <img src="{{iconMap.get(character.type)}}" alt="character type icon">
+      <p>{{character.name}}</p>
+    </div>
+  </div>
+
+
+  <div *ngIf="type === 'fighter'">
+    <div class="box small-box"
+      [ngStyle]="{'border': isFighting ? '3px solid green' : isSelected ? '3px solid black' : ''}"
+      [ngStyle]="{'display': isDead ? 'none' : ''}">
+      <div>
+        <img *ngIf="character.isAlive" src="{{character.pictureURL}}"
+          alt="character profile picture"
+          onError="this.src='./../../../../../assets/images/white-square.jpg'">
+        <img *ngIf="!character.isAlive" src="{{graveMap.get(character.type)}}"
+          alt="character profile picture"
+          onError="this.src='./../../../../../assets/images/white-square.jpg'">
+      </div>
+      <div class="hidden">
+        <p>
+          Hp: {{character.currentHealth}}/{{character.maxHealth}}
+        </p>
+        <p
+          *ngIf="character.type.valueOf() === 'WARRIOR' || character.type.valueOf() === 'ARCHER'">
+          Stamina: {{character.currentStamina}}
+        </p>
+        <p *ngIf="character.type.valueOf() === 'MAGE'">
+          Mana: {{character.currentMana}}
+        </p>
+        <p *ngIf="character.type.valueOf() === 'WARRIOR'">
+          Strength: {{character.strength}}
+        </p>
+        <p *ngIf="character.type.valueOf() === 'ARCHER'">
+          Accuracy: {{character.accuracy}}
+        </p>
+        <p *ngIf="character.type.valueOf() === 'MAGE'">
+          Intelligence: {{character.intelligence}}
+        </p>
+        <p>Lvl: {{character.level}}</p>
+      </div>
+    </div>
+    <div class="bottom-name small-bottom-name">
+      <img src="{{iconMap.get(character.type)}}" alt="character type icon">
+      <p>{{character.name}}</p>
+    </div>
+  </div>
+
+</div>

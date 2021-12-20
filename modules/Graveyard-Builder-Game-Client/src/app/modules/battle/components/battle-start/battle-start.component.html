@@ -1,0 +1,60 @@
+<app-back-button [routeName]="'menu'"></app-back-button>
+<app-battle-header *ngIf="!finishedBattle" [inBattle]="inBattle"
+  [userName]="currentUserUsername" [opponentName]="opponentUsername"
+  [userProfileImage]="currentUserPicture"
+  [opponentProfileImage]="opponentPicture">
+</app-battle-header>
+
+<div class="container-fluid" *ngIf="!inBattle && !finishedBattle">
+  <div
+    class="selection-title d-flex flex-column flex-sm-row justify-content-center justify-content-sm-start">
+    <h2 class=" font-weight-light text-center text-sm-start">
+      Select you fighters
+      {{selectedParty.length}}/5
+    </h2>
+    <button
+      class="btn-party btn btn-warning d-flex flex-row justify-content-center align-content-center  mx-sm-3 mx-auto"
+      *ngIf="currentParty.length<5" (click)="goToParty()"> Add party members
+    </button>
+  </div>
+
+
+  <div class="row m-auto justify-content-center align-items-center">
+    <div class="arrow-container col-sm-auto align-items-center">
+      <mat-icon class="arrows" (click)="scrollLeft()">arrow_back_ios
+      </mat-icon>
+    </div>
+    <div #widgetsContent
+      class="scrolling-wrapper row flex-row flex-nowrap col-12 col-sm-auto">
+      <div class="item" *ngFor="let partyMember of currentParty">
+        <app-character-grid-item class="item-detail" [type]="'character'"
+          [character]="partyMember"
+          [experienceToLvlUp]="requiredExperienceToLvlUp(partyMember)"
+          [isSelected]="selectedParty.includes(partyMember)"
+          (click)="selectCharacter(partyMember)">
+        </app-character-grid-item>
+      </div>
+    </div>
+
+    <div class="arrow-container col-sm-auto align-items-center">
+      <mat-icon class="arrows" (click)="scrollRight()">
+        arrow_forward_ios</mat-icon>
+    </div>
+  </div>
+
+  <div
+    class="button-container d-flex flex-column align-items-center justify-content-center">
+    <button class="btn btn-primary col-auto px-4"
+      [disabled]="selectedParty.length<5" (click)="goToBattle()">
+      Battle!
+    </button>
+  </div>
+</div>
+
+<app-battle-ui *ngIf="inBattle" [userTeam]="selectedParty"
+  [opponentTeam]="selectedOpponents" (finishBattle)="setFinishedBAttle($event)">
+</app-battle-ui>
+
+<app-battle-end *ngIf="finishedBattle" [won]="battleWon"
+  [experienceEarned]="experienceEarned" [goldEarned]="goldEarned">
+</app-battle-end>

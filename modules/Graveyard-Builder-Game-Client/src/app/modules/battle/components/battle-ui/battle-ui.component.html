@@ -1,0 +1,90 @@
+<div class="container">
+
+  <div
+    class="battle-area d-flex flex-row justify-content-between justify-content-sm-evenly align-content-center"
+    *ngIf="!firstRound">
+
+    <div class="d-flex flex-row justify-content-center">
+      <app-character-ui #fighterComponent class="batle-character"
+        [character]="fighter" [damageReceived]="getPlayerDamageReceived()"
+        [energyChanges]="getPlayerEnergyChanges()"
+        [isBlocked]="getPlayerPassive() !== undefined && getPlayerPassive() === 'Block'"
+        [isManaPassive]="getPlayerPassive() !== undefined &&
+      getPlayerPassive() === 'Restore Mana'" [action]="getPlayerAction()"
+        [damageDone]="getOpponentDamageReceived()" [gaveCriticalStrike]="getPlayerPassive() !== undefined &&
+        getPlayerPassive() === 'Critical Hit'" [receivedCriticalStrike]="getOpponentPassive() !== undefined &&
+      getOpponentPassive() === 'Critical Hit'">
+      </app-character-ui>
+    </div>
+
+    <div class="d-flex flex-row justify-content-center">
+      <app-character-ui #opponentComponent class="batle-character"
+        [character]="opponent" [damageReceived]="getOpponentDamageReceived()"
+        [energyChanges]="getOpponentEnergyChanges()"
+        [isBlocked]="getOpponentPassive() !== undefined && getOpponentPassive() === 'Block'"
+        [isManaPassive]="getOpponentPassive() !== undefined &&
+        getOpponentPassive() === 'Restore Mana'" [action]="getOpponentAction()"
+        [damageDone]="getPlayerDamageReceived()" [gaveCriticalStrike]="getOpponentPassive() !== undefined &&
+        getOpponentPassive() === 'Critical Hit'" [receivedCriticalStrike]="getPlayerPassive() !== undefined &&
+        getPlayerPassive() === 'Critical Hit'">
+      </app-character-ui>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+<div class="button-switch d-flex flex-row justify-content-end"
+  *ngIf=" firstRound || selectedFighter !== fighter || (inCharacterSelection && fighter!.isAlive)">
+
+  <button class="fighter-switch-button btn btn-sm btn-success"
+    *ngIf="firstRound || inCharacterSelection" (click)="confirmSwitchFighter()">
+    Select Fighter
+  </button>
+
+  <button class="fighter-switch-button btn btn-sm btn-success"
+    *ngIf="!firstRound && !inCharacterSelection"
+    (click)="confirmSwitchFighter()">
+    Switch Fighter
+  </button>
+
+
+  <button class="fighter-switch-button btn btn-sm btn-danger"
+    *ngIf="!firstRound && !inCharacterSelection" (click)="cancelSwitch()">
+    Cancel
+  </button>
+
+
+</div>
+
+<div class="action-menu row justify-content-center bg-white">
+  <div
+    class="actions col col-6 col-xl-2 d-flex align-items-center justify-content-center"
+    *ngIf="!inCharacterSelection" (click)="performAttack()">
+    {{attackMap.get(fighter.type)}}
+  </div>
+  <div
+    [ngClass]="{'button-disabled': getPlayerSpecialCost() > (energyMap.get(fighter.type) === 'stamina' ? fighter.currentStamina : fighter.currentMana)}"
+    class="actions col col-6 col-xl-2 d-flex align-items-center justify-content-center"
+    *ngIf="!inCharacterSelection" (click)="performSpecial()">
+    {{specialMap.get(fighter.type)}}
+    <span
+      [ngClass]="{'text-danger': getPlayerSpecialCost() > (energyMap.get(fighter.type) === 'stamina' ? fighter.currentStamina : fighter.currentMana)}"
+      class="energyCost">
+      - {{getPlayerSpecialCost()}} {{energyMap.get(fighter.type)}} </span>
+  </div>
+  <div
+    class="fighter-selection col col-12 col-xl-8 d-flex flex-row flex-nowrap justify-content-between"
+    [ngClass]="{'unique': inCharacterSelection}">
+    <app-character-grid-item *ngFor="let character of userTeam"
+      [ngClass]="{'dead-fighter': !character.isAlive}" class="item-detail"
+      (click)="selectFighter(character)"
+      [isSelected]="character === selectedFighter&& character.isAlive"
+      [isFighting]="character === fighter && character.isAlive"
+      [type]="'fighter'" [character]="character">
+    </app-character-grid-item>
+  </div>
+
+</div>

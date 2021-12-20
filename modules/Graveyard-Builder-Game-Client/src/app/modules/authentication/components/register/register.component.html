@@ -1,0 +1,65 @@
+<app-back-button [routeName]="'login'"></app-back-button>
+<form class="container form-section" [formGroup]="registerForm"
+  (ngSubmit)="validateAndRegister(formDirective)" #formDirective="ngForm">
+
+  <h2>Register</h2>
+
+  <div class="input-element">
+    <label for="username">Username*</label>
+    <input class="username" type="username" formControlName="username"
+      [ngStyle]="{'border': (username.hasError('required') || username.hasError('minlength')) && username.dirty ? '2px solid #f00' : ''}">
+    <p class="error-message"
+      *ngIf="username.hasError('required') && username.dirty">
+      * Username required
+    </p>
+    <p class="error-message"
+      *ngIf="username.hasError('minlength') && username.dirty">
+      * Username must be at least 3 characters long
+    </p>
+  </div>
+
+  <div class="input-element">
+    <label for="email">Email*</label>
+    <input class="email" type="email" formControlName="email"
+      [ngStyle]="{'border': (email.hasError('required') || email.hasError('email')) && email.dirty ? '2px solid #f00' : ''}">
+    <p class="error-message" *ngIf="email.hasError('required') && email.dirty">
+      * Email required
+    </p>
+    <p class="error-message" *ngIf="email.hasError('email') && email.dirty">
+      * Must be a valid email
+    </p>
+  </div>
+
+  <div class="input-element">
+    <label for="email">Password*</label>
+    <input class="password" type="password" formControlName="password"
+      [ngStyle]="{'border': (password.hasError('required') || password.hasError('minlength')) && password.dirty ? '2px solid #f00' : ''}">
+    <p class="error-message"
+      *ngIf="password.hasError('required') && password.dirty">
+      * Password required
+    </p>
+    <p class="error-message"
+      *ngIf="password.hasError('minlength') && password.dirty">
+      * Password must be at least 6 characters long
+    </p>
+  </div>
+
+  <div class="input-element">
+    <label for="email">Repeat password*</label>
+    <input class="passwordConfirmation" type="password"
+      formControlName="passwordConfirmation" [ngStyle]="{'border':
+      registerForm.hasError('differentPassword') && passwordConfirmation.dirty && !password.hasError('required') ?
+      '2px solid #f00' : ''}">
+    <p class="error-message"
+      *ngIf="registerForm.hasError('differentPassword') && passwordConfirmation.dirty && !password.hasError('required')">
+      * Passwords must match
+    </p>
+  </div>
+
+
+  <div class="button_container">
+    <button class="register_button btn btn-sm btn-primary" type="submit"
+      [disabled]="registerForm.invalid">Register</button>
+  </div>
+
+</form>

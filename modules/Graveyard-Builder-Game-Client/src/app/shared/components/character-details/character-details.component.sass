@@ -1,0 +1,100 @@
+.container
+  margin: 3rem 0
+  padding-left: 40px
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+
+.character-main-details
+  margin-bottom: 1.6rem
+  display: flex
+  flex-direction: row
+
+  img
+    width: 5rem
+    width: 5rem
+    margin-right: 1rem
+    border: 2px solid #ccc
+    border-radius: 4px
+
+  h2
+    font-size: 1.6rem
+    margin-top: 0.1rem
+    margin-bottom: 0.8rem
+
+  h3
+    font-size: 1.2rem
+    margin: 0
+
+p
+  font-size: 0.9rem
+  margin-bottom: 0.6rem
+
+.button-line
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  align-items: center
+
+  button
+    margin-right: 16px
+    font-size: 1em
+    padding: 6px 12px
+
+  p, mat-icon
+    margin: 0
+    height: 1.2rem
+    line-height: 1.2rem
+    font-size: 0.8rem
+    margin-right: 4px
+
+
+.stat-row
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+
+  p
+    height: 1.2rem
+    line-height: 1.2rem
+    margin-right: 1rem
+
+
+.line-stats
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  align-items: center
+  margin-bottom: 1rem
+
+  p, mat-icon
+    margin: 0
+    height: 1.2rem
+    line-height: 1.2rem
+    font-size: 1.2em
+    display: inline
+
+  p
+    margin-right: 6px
+
+.btn-inactive
+  color: #ccc
+  &:hover
+    cursor: default
+
+
+.level-details
+  margin-bottom: 1.6rem
+
+.stats-details
+  margin-bottom: 2rem
+
+.btn-remove
+  font-size: 0.9rem
+  padding: 10px
+
+
+@media (max-width: 320px)
+  .container
+    min-width: 0
+    width: 100%

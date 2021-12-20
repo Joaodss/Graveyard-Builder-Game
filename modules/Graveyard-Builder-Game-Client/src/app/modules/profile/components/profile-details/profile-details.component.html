@@ -1,0 +1,45 @@
+<app-back-button [routeName]="'menu'"></app-back-button>
+<div class="container user row" [ngClass]="{'inPictureEdit': isImageEditMode}">
+
+  <div
+    class="profile-img-container col-12 col-sm-auto p-0 d-flex flex-column justify-content-center align-items-sm-start align-items-center">
+
+    <div
+      class="profile-img d-flex flex-column justify-content-center align-items-sm-start align-items-center"
+      (click)="openImageForm()">
+      <img src="{{user.profilePictureUrl}}" class="img-fluid"
+        onError="this.src='./../../../../../assets/images/blank-user.png'"
+        alt="User profile picture">
+      <mat-icon class="hidden">edit</mat-icon>
+    </div>
+
+
+    <div class="container image-form" *ngIf="isImageEditMode">
+      <input type="text" placeholder="Image URL" name="a"
+        [(ngModel)]="updatedImageUrl">
+      <button class="btn btn-sm btn-primary" (click)="imageUpdate()"
+        [disabled]="!updatedImageUrl">
+        <mat-icon>check</mat-icon>
+      </button>
+      <button class="btn btn-sm btn-danger" (click)="closeImageForm()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="user-details w-100 col-12 col-sm px-5 d-flex flex-column justify-content-center align-items-sm-start align-items-center">
+    <h2>{{user.username}}</h2>
+    <h3>{{user.email}}</h3>
+  </div>
+
+</div>
+
+
+
+<app-password-form></app-password-form>
+
+<div class="container d-flex button-container mb-0">
+  <button class="logout-button btn btn-sm btn-danger"
+    (click)="logout()">Logout</button>
+</div>

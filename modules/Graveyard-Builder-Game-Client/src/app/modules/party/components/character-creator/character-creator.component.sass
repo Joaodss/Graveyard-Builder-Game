@@ -1,0 +1,126 @@
+.container
+  margin: 3rem 0
+  padding-left: 40px
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+
+.character-main-details
+  width: 100%
+  margin-bottom: 1.6rem
+  display: flex
+  flex-direction: row
+
+  img
+    width: 6rem
+    height: 6rem
+    min-width: 110px
+    min-height: 110px
+    height: 6rem
+    margin-right: 1rem
+    border: 2px solid #ccc
+    border-radius: 4px
+
+  .character-details
+    max-width: 16rem
+    width: 100%
+
+  label
+    text-align: right
+    font-size: 1rem
+    margin-bottom: 0.2rem
+  .name-form
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    input
+      width: 100%
+      border: 2px solid #ccc
+      border-radius: 4px
+      padding: 2px
+      margin-bottom: 0.6rem
+
+  .image-form
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    input
+      width: 100%
+      border: 2px solid #ccc
+      border-radius: 4px
+      padding: 2px
+
+.radio-type
+  display: flex
+  flex-direction: column
+  margin-bottom: 1.6rem
+  label
+    font-size: 1rem
+    margin-bottom: 0.4rem
+  .radio-option
+    font-size: 0.8rem
+    margin-right: 1rem
+    margin-bottom: 0.2rem
+
+.line-stats
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  align-items: center
+  label, p, mat-icon
+    margin: 0
+    height: 1.2rem
+    line-height: 1.2rem
+    font-size: 0.8rem
+    margin-bottom: 0.4rem
+    display: inline
+  label
+    text-align: right
+    font-size: 1rem
+    margin-right: 0.4rem
+  p
+    margin-right: 8px
+
+.button-line
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  align-items: center
+
+  button
+    margin-right: 1rem
+    font-size: 0.8rem
+    padding: 6px 12px
+
+
+
+.level-details
+  margin-bottom: 1.8rem
+
+.stats-details
+  margin-bottom: 1.8rem
+
+.button-container
+  margin: 2rem 0
+
+
+.btn-inactive
+  color: #ccc
+  &:hover
+    cursor: default
+
+.btn-random
+  margin: 2rem 0
+
+@media (max-width: 320px)
+  .radio-type
+    .radio-option
+      margin-right: 0.8rem
+  .container
+    min-width: 0
+    width: 100%
+
+@media (max-width: 300px)
+  .radio-type
+    .radio-option
+      margin-right: 0.6rem

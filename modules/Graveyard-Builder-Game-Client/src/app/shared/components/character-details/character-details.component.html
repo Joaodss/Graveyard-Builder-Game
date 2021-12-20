@@ -1,0 +1,155 @@
+<div class="container">
+
+  <div class="character-main-details">
+    <div class="profile-img">
+      <img src="{{character.pictureURL}}"
+        onError="this.src='./../../../../../assets/images/white-square.jpg'"
+        alt="character picture">
+    </div>
+
+    <div class="character-details">
+      <h2>{{character.name}}</h2>
+      <h3>{{character.type | titlecase}}</h3>
+    </div>
+  </div>
+
+  <div class="level-details">
+    <p>Level: {{character.level}}</p>
+    <p>Experience: {{character.experience}} / {{experienceToLvlUp}}</p>
+    <div class="button-line" *ngIf="isAlive"
+      [ngStyle]="{color: (character.experience < experienceToLvlUp || user.gold < 5 + character.level) ? '#ccc' : '#000' }">
+      <button class="btn btn-warning" *ngIf="isAlive && !levelingUp"
+        (click)="startLevelUp()"
+        [disabled]="character.experience < experienceToLvlUp || user.gold < 5 + character.level">
+        Level Up
+      </button>
+
+      <button class="btn btn-danger" *ngIf="isAlive && levelingUp"
+        (click)="cancelLevelUp()">
+        Cancel
+      </button>
+      <button class="btn btn-success" *ngIf="isAlive && levelingUp"
+        (click)="LevelUp()"
+        [disabled]="character.experience < experienceToLvlUp || user.gold < 5 + character.level || healthPoints + energyPoints + attackPoints < 3 ">
+        Confirm Level Up
+      </button>
+      <p> {{5 + character.level}}</p>
+      <mat-icon> monetization_on</mat-icon>
+    </div>
+  </div>
+
+  <div class="stats-details">
+    <div class="stat-row">
+      <p>Health: {{character.currentHealth}} / {{character.maxHealth}}</p>
+      <div class="line-stats" *ngIf="isAlive && levelingUp">
+        <mat-icon class="add-icon" (click)="subtractStat('health')"
+          [ngClass]="healthPoints > 0 ? 'btn-active' : 'btn-inactive'">
+          remove_circle
+        </mat-icon>
+        <p>{{healthPoints}}</p>
+        <mat-icon class="add-icon" (click)="addStat('health')"
+          [ngClass]="healthPoints + energyPoints + attackPoints < 3 ? 'btn-active' : 'btn-inactive'">
+          add_circle
+        </mat-icon>
+      </div>
+    </div>
+
+
+    <div class="stat-row">
+      <p
+        *ngIf="character.type.valueOf() === 'WARRIOR' || character.type.valueOf() === 'ARCHER'">
+        Stamina: {{character.currentStamina}}
+      </p>
+      <p *ngIf="character.type.valueOf() === 'MAGE'">
+        Mana: {{character.currentMana}}
+      </p>
+      <div class="line-stats" *ngIf="isAlive && levelingUp">
+        <mat-icon class="add-icon" (click)="subtractStat('energy')"
+          [ngClass]="energyPoints > 0 ? 'btn-active' : 'btn-inactive'">
+          remove_circle
+        </mat-icon>
+        <p>{{energyPoints}}</p>
+        <mat-icon class="add-icon" (click)="addStat('energy')"
+          [ngClass]="healthPoints + energyPoints + attackPoints < 3 ? 'btn-active' : 'btn-inactive'">
+          add_circle
+        </mat-icon>
+      </div>
+    </div>
+
+
+    <div class="stat-row">
+      <p *ngIf="character.type.valueOf() === 'WARRIOR'">
+        Strength: {{character.strength}}
+      </p>
+      <p *ngIf="character.type.valueOf() === 'ARCHER'">
+        Accuracy: {{character.accuracy}}
+      </p>
+      <p *ngIf="character.type.valueOf() === 'MAGE'">
+        Intelligence: {{character.intelligence}}
+      </p>
+      <div class="line-stats" *ngIf="isAlive && levelingUp">
+        <mat-icon class="add-icon" (click)="subtractStat('attack')"
+          [ngClass]="attackPoints > 0 ? 'btn-active' : 'btn-inactive'">
+          remove_circle
+        </mat-icon>
+        <p>{{attackPoints}}</p>
+        <mat-icon class="add-icon" (click)="addStat('attack')"
+          [ngClass]="healthPoints + energyPoints + attackPoints < 3 ? 'btn-active' : 'btn-inactive'">
+          add_circle
+        </mat-icon>
+      </div>
+    </div>
+
+
+    <div class="button-line" *ngIf="isAlive"
+      [ngStyle]="{color: (character.currentHealth >= character.maxHealth || user.gold < 5) ? '#ccc' : '#000' }">
+      <button class="btn btn-warning" (click)="healCharacter()"
+        [disabled]="character.currentHealth >= character.maxHealth || user.gold < 5">
+        Heal
+      </button>
+      <p>{{5}}</p>
+      <mat-icon>monetization_on</mat-icon>
+    </div>
+
+
+  </div>
+
+  <div class="button-container">
+    <div class="button-line mb-5" *ngIf="!character.isAlive"
+      [ngStyle]="{color: (user.gold < 5 + character.level) ? '#ccc' : '#000' }">
+      <button class="btn btn-success btn-revive" *ngIf="!confirmRevive"
+        [disabled]="user.gold < 5 + character.level || currentPartySize >= 10"
+        (click)="reviveConfirmation()">
+        Revive
+      </button>
+      <button *ngIf="confirmRevive" class="btn btn-danger"
+        (click)="cancelRevive()">
+        Cancel
+      </button>
+      <button *ngIf="confirmRevive" class="btn btn-success"
+        (click)="reviveCharacter()">
+        Confirm revival
+      </button>
+      <p>{{5 + character.level}}</p>
+      <mat-icon>monetization_on</mat-icon>
+    </div>
+
+    <div class="button-line">
+      <button *ngIf="!confirmDelete"
+        class="btn btn-danger btn-remove" (click)="removeConfirmation()">
+        Remove
+      </button>
+      <button *ngIf="confirmDelete"
+        class="btn btn-danger btn-remove" (click)="cancelRemove()">
+        Cancel
+      </button>
+      <button *ngIf="confirmDelete"
+        class="btn btn-success btn-remove" (click)="removeCharacter()">
+        Confirm removal
+      </button>
+    </div>
+
+  </div>
+
+
+</div>

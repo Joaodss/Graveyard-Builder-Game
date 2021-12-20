@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "party-list.component.sass"
+    ],
+    "names": [],
+    "file": "party-list.component.css"
+}

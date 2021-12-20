@@ -1,0 +1,174 @@
+.container
+  max-width: 800px
+  margin-top: 5em
+  margin-bottom: 4em
+  position: relative
+
+.inPictureEdit
+  margin-bottom: 8em
+
+.user
+  height: 8rem
+
+
+  .profile-img
+    border-radius: 50%
+    &:hover
+      cursor: pointer
+
+    img
+      object-fit: cover
+      height: 8rem
+      width: 8rem
+      border-radius: 50%
+      transition: filter 0.4s ease-in-out
+
+    .hidden
+      width: 0
+      height: 0
+      opacity: 0
+      color: #fff
+      position: relative
+      right: -2rem
+      top: -6rem
+      font-size: 4.1rem
+      transition: opacity 0.4s ease-in-out
+      z-index: 1
+
+  .profile-img:hover img
+    -webkit-filter: brightness(.7)
+    filter: brightness(.7)
+
+  .profile-img:hover .hidden
+    opacity: 1
+
+
+  .user-details
+    width: auto
+
+  h2
+    font-size: 2rem
+    color: #333
+    font-weight: bold
+    margin-bottom: 40px
+
+  h3
+    font-size: 1rem
+    color: #333
+    font-weight: bold
+
+.image-form
+  width: calc(100% - 40px)
+  padding: 0
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  align-items: center
+  position: absolute
+  top: 6rem
+
+  input
+    width: 100%
+    height: 40px
+    border-radius: 5px
+    border: 1px solid #ccc
+
+.btn
+  height: 40px
+  display: flex
+  flex-direction: row
+  align-items: center
+  mat-icon
+    font-size: 24px
+
+
+.logout-button
+  margin-top: 30px
+  font-size: 1.2em
+  margin-bottom: 100px
+
+
+@media (max-width: 575px)
+  .container
+    margin-bottom: 13em
+  .user
+    height: 12rem
+    .profile-img-container
+      margin-bottom: 1.8rem
+    .profile-img
+      img
+        object-fit: cover
+        height: 12rem
+        width: 12rem
+      .hidden
+        right: 2.7rem
+        top: -9rem
+        font-size: 6rem
+    h2
+      font-size: 2.2rem
+      margin-bottom: 1rem
+    h3
+      font-size: 1.2rem
+  .image-form
+    position: relative
+    top: 0
+    margin: 0 auto
+    margin-top: 1rem
+    padding: 0
+  .button-container
+    justify-content: center
+    .logout-button
+      padding-left: 20px
+      padding-right: 20px
+  .inPictureEdit
+    margin-bottom: 14em
+
+
+
+
+
+@media (max-width: 400px)
+  .user
+    height: 10rem
+    margin-bottom: 11em
+    .profile-img-container
+      margin-bottom: 1.6rem
+    .profile-img
+      img
+        object-fit: cover
+        height: 10rem
+        width: 10rem
+      .hidden
+        right: 2.2rem
+        top: -7.6rem
+        font-size: 5rem
+    h2
+      font-size: 2rem
+    h3
+      font-size: 1rem
+  .inPictureEdit
+    margin-bottom: 13em
+
+
+@media (max-width: 320px)
+  .user
+    height: 10rem
+    margin-bottom: 8em
+    .profile-img-container
+      margin-bottom: 1rem
+    .profile-img
+      img
+        object-fit: cover
+        height: 9rem
+        width: 9rem
+      .hidden
+        right: 2.1rem
+        top: -6.8rem
+        font-size: 4.7rem
+    h2
+      font-size: 1.4rem
+      margin-bottom: 0.6rem
+    h3
+      font-size: 0.8rem
+  .inPictureEdit
+    margin-bottom: 11em

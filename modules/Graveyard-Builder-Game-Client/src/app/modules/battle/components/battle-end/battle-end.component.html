@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="title-container d-flex justify-content-center align-items-start">
+    <h2 class=result-title *ngIf="won ===1">VICTORY!</h2>
+    <h2 class=result-title *ngIf="won === 0">DRAW!</h2>
+    <h2 class=result-title *ngIf="won === -1">DEFEAT!</h2>
+  </div>
+
+  <div
+    class="rewards-container row justify-content-center align-content-center">
+    <div class="col col-sm-4  text-center align-content-center">
+      <p> + {{experienceEarned}} xp </p>
+    </div>
+    <div class="col col-sm-4 text-center inline align-content-center">
+      <p> + {{goldEarned}} gold </p>
+      <mat-icon class="gold-coin"> monetization_on</mat-icon>
+    </div>
+  </div>
+
+  <div class="btn-container row justify-content-center">
+    <div class="col col-sm-auto text-center">
+      <button class="btn btn-secondary px-4" (click)="backToMenu()">
+        Back to menu
+      </button>
+    </div>
+  </div>
+
+
+
+
+</div>

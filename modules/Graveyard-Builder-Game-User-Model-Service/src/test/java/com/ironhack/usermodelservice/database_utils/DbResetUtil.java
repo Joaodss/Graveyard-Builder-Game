@@ -1,0 +1,45 @@
+package com.ironhack.usermodelservice.database_utils;
+
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.env.Environment;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import static lombok.AccessLevel.PRIVATE;
+
+@NoArgsConstructor(access = PRIVATE)
+@Slf4j
+public class DbResetUtil {
+
+    // Resets the database id auto increment.
+    public static void resetAutoIncrementColumns(ApplicationContext applicationContext, String... tableNames) throws SQLException {
+        log.info("Resetting auto increment columns");
+        // Read the used database connection from the properties file
+        DataSource dataSource = applicationContext.getBean(DataSource.class);
+        var resetSqlTemplate = getResetSqlTemplate(applicationContext);
+        try (Connection dbConnection = dataSource.getConnection()) {
+            for (String resetSqlArgument : tableNames) {
+                // Create statement and execute it for each table name
+                try (Statement statement = dbConnection.createStatement()) {
+                    var resetSql = String.format(resetSqlTemplate, resetSqlArgument);
+                    statement.execute(resetSql);
+                }
+            }
+        }
+        log.info("Auto increment columns reset");
+    }
+
+    // Get the template data with the SQL query to execute.
+    private static String getResetSqlTemplate(ApplicationContext applicationContext) {
+        // Read the SQL template from the properties file
+        log.info("Reading SQL template from properties file");
+        var environment = applicationContext.getBean(Environment.class);
+        return environment.getRequiredProperty("test.reset.sql.template");
+    }
+
+}

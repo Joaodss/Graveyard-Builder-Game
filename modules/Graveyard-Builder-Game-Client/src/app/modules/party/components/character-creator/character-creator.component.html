@@ -1,0 +1,109 @@
+<form class="container form-section row" [formGroup]="createForm"
+  (ngSubmit)="create()" #formDirective="ngForm">
+
+
+
+  <div class="character-main-details">
+    <div class="profile-img">
+      <img src="{{imageURL.value}}" *ngIf="type.value === 'WARRIOR'"
+        onError="this.src='./../../../../../assets/images/character-default/warrior-picture.svg'"
+        alt="character add image">
+      <img src="{{imageURL.value}}" *ngIf="type.value === 'ARCHER'"
+        onError="this.src='./../../../../../assets/images/character-default/archer-picture.svg'"
+        alt="character add image">
+      <img src="{{imageURL.value}}" *ngIf="type.value === 'MAGE'"
+        onError="this.src='./../../../../../assets/images/character-default/mage-picture.svg'"
+        alt="character add image">
+
+    </div>
+
+    <div class="character-details">
+      <div class="name-form">
+        <label for="name">Name</label>
+        <input class="name" type="text" formControlName="name">
+      </div>
+
+      <div class="image-form">
+        <label for="type">Image url</label>
+        <input class="imageURL" type="text" formControlName="imageURL">
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="radio-type">
+    <label for="type">Type</label>
+    <div class="d-flex flex-row flex-sm-column">
+      <div class="radio-option"><input type="radio" formControlName="type"
+        value="WARRIOR" checked=true>
+      Warrior</div>
+    <div class="radio-option"><input type="radio" formControlName="type"
+        value="ARCHER"> Archer
+    </div>
+    <div class="radio-option"><input type="radio" formControlName="type"
+        value="MAGE"> Mage</div>
+    </div>
+  </div>
+
+
+  <div class="line-stats">
+    <label>Health points</label>
+    <mat-icon class="add-icon" (click)="subtractStat('health')"
+      [ngClass]="healthPoints.value > 0 ? 'btn-active' : 'btn-inactive'">
+      remove_circle
+    </mat-icon>
+    <p>{{healthPoints.value}}</p>
+    <mat-icon class="add-icon" (click)="addStat('health')"
+      [ngClass]="healthPoints.value + energyPoints.value + attackPoints.value < 3 ? 'btn-active' : 'btn-inactive'">
+      add_circle
+    </mat-icon>
+  </div>
+
+  <div class="line-stats">
+    <label *ngIf="type.value === 'WARRIOR' || type.value === 'ARCHER'">Stamina
+      points
+    </label>
+    <label *ngIf="type.value === 'MAGE'">Mana points</label>
+    <mat-icon class="add-icon" (click)="subtractStat('energy')"
+      [ngClass]="energyPoints.value > 0 ? 'btn-active' : 'btn-inactive'">
+      remove_circle
+    </mat-icon>
+    <p>{{energyPoints.value}}</p>
+    <mat-icon class="add-icon" (click)="addStat('energy')"
+      [ngClass]="healthPoints.value + energyPoints.value + attackPoints.value < 3 ? 'btn-active' : 'btn-inactive'">
+      add_circle
+    </mat-icon>
+  </div>
+
+  <div class="line-stats">
+    <label *ngIf="type.value === 'WARRIOR'">Strength points</label>
+    <label *ngIf="type.value === 'ARCHER'">Accuracy points</label>
+    <label *ngIf="type.value === 'MAGE'">Intelligence points</label>
+    <mat-icon class="add-icon" (click)="subtractStat('attack')"
+      [ngClass]="attackPoints.value > 0 ? 'btn-active' : 'btn-inactive'">
+      remove_circle
+    </mat-icon>
+    <p>{{attackPoints.value}}</p>
+    <mat-icon class="add-icon" (click)="addStat('attack')"
+      [ngClass]="healthPoints.value + energyPoints.value + attackPoints.value < 3 ? 'btn-active' : 'btn-inactive'">
+      add_circle
+    </mat-icon>
+  </div>
+
+  <div class="button-line">
+    <button type="button" class="btn-random btn btn-warning"
+      (click)="generateRandom()">
+      Random
+    </button>
+  </div>
+  <div class="button-line">
+    <button type="submit" class="btn-submit btn btn-success"
+      [disabled]="!createForm.valid || healthPoints.value + energyPoints.value + attackPoints.value < 3">
+      Create character
+    </button>
+  </div>
+
+
+
+</form>

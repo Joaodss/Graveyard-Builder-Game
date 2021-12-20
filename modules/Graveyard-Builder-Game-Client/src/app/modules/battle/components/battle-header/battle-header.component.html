@@ -1,0 +1,26 @@
+<div class="container w-100 row justify-content-center align-items-center">
+
+  <div class="col col-sm-auto">
+    <img *ngIf="!inBattle" src="{{userProfileImage}}" alt="user picture"
+      class="card-img border border-2 border-primary rounded mx-auto d-block"
+      style="max-width: 160px;"
+      onError="this.src='./../../../../../assets/images/blank-user.png'">
+    <h3 class="card-title text-center"
+      [ngStyle]="{'font-size': inBattle ? '1.2rem': ''}">{{userName}}</h3>
+  </div>
+
+  <div class="col col-auto align-items-center">
+    <h2 class="text-center"
+      [ngStyle]="{'font-size': inBattle ? '1rem': '', 'margin-bottom': inBattle ? '16px': '' }">
+      VS </h2>
+  </div>
+
+  <div class="col col-sm-auto">
+    <img *ngIf="!inBattle" src="{{opponentProfileImage}}" alt="opponent picture"
+      class="card-img border border-2 border-danger rounded mx-auto d-block"
+      style="max-width: 160px;"
+      onError="this.src='./../../../../../assets/images/blank-user.png'">
+    <h3 class="card-title text-center"
+      [ngStyle]="{'font-size': inBattle ? '1.2rem': ''}">{{opponentName}}</h3>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "character-grid-item.component.sass"
+    ],
+    "names": [],
+    "file": "character-grid-item.component.css"
+}

@@ -1,0 +1,34 @@
+<form class="container form-section" [formGroup]="loginForm"
+  (ngSubmit)="login(formDirective)" #formDirective="ngForm">
+
+  <h2>Login</h2>
+
+  <div class="input-element">
+    <label for="username">Username</label>
+    <input class="username" type="username" formControlName="username"
+      [ngStyle]="{'border': username.hasError('required') && username.dirty ? '2px solid #f00' : ''}">
+    <p class="error-message"
+      *ngIf="username.hasError('required') && username.dirty">
+      * Username required
+    </p>
+  </div>
+
+  <div class="input-element">
+    <label for="password">Password</label>
+    <input class="password" type="password" formControlName="password"
+      [ngStyle]="{'border': password.hasError('required') && password.dirty ? '2px solid #f00' : ''}">
+    <p class="error-message"
+      *ngIf="password.hasError('required') && password.dirty">
+      * Password required
+    </p>
+
+  </div>
+
+  <div class="button_container">
+    <button class="login_button btn btn-sm btn-primary" type="submit"
+      [disabled]="loginForm.invalid">Login</button>
+    <button class="register_button btn btn-sm btn-secondary"
+      (click)="toRegister()">Register</button>
+  </div>
+
+</form>

@@ -1,0 +1,82 @@
+<div class="character-container d-flex flex-column">
+
+
+  <div [@displayDamage]="displayDamageState"
+    class="damage-recieved w-100 d-flex flex-row justify-content-center align-items-center"
+    [ngClass]="{'text-danger': damageReceived > 0, 'text-black-50': damageReceived <= 0}">
+    <div class="damage"
+      [ngStyle]="{'font-size': (damageReceived > character.maxHealth / 3) ? '1.3rem':''}">
+      {{displayDamageReceived()}}
+    </div>
+    <div class="passive ms-2">
+      <mat-icon *ngIf="isBlocked">
+        security
+      </mat-icon>
+      <mat-icon
+        *ngIf="receivedCriticalStrike && (damageReceived > 0 || (isBlocked && damageReceived <= 0))">
+        whatshot
+      </mat-icon>
+    </div>
+  </div>
+
+  <div class="progress w-100" style="height: 20px;">
+    <div class="progress-bar h-100" role="progressbar"
+      [ngStyle]="{ 'width': healthPercentage() + '%' }"
+      [ngClass]="{'bg-success': healthPercentage() >= 50, 'bg-warning': healthPercentage() < 50 && healthPercentage() >= 20, 'bg-danger': healthPercentage() < 20}"
+      aria-valuemin="0" aria-valuemax="100"
+      attr.aria-valuenow="'{{healthPercentage()}}'">
+    </div>
+  </div>
+
+  <div class="health">
+    Health: {{character.currentHealth}} / {{character.maxHealth}}
+  </div>
+
+  <div class="energy d-flex flex-row justify-content-start">
+    <div>{{getEnergy()}}</div>
+    <div class="energy-changes ms-2 mb-0 text-primary"
+      [@displayEnergy]="displayEnergyState">
+      {{displayEnergyChanges()}}
+      <mat-icon *ngIf="isManaPassive"
+        class="mana-passive passive ms-1 text-primary">
+        arrow_upward
+      </mat-icon>
+    </div>
+  </div>
+
+  <div class="character-picture w-100">
+    <img class="w-100" src="{{character.pictureURL}}"
+      *ngIf="character.type === 'WARRIOR'"
+      onError="this.src='./../../../../../assets/images/character-default/warrior-picture.svg'"
+      alt="character image">
+    <img class="w-100" src="{{character.pictureURL}}"
+      *ngIf="character.type === 'ARCHER'"
+      onError="this.src='./../../../../../assets/images/character-default/archer-picture.svg'"
+      alt="character image">
+    <img class="w-100" src="{{character.pictureURL}}"
+      *ngIf="character.type === 'MAGE'"
+      onError="this.src='./../../../../../assets/images/character-default/mage-picture.svg'"
+      alt="character image">
+  </div>
+
+  <div class="character-name w-100 d-flex flex-row justify-content-center">
+    <img src="{{iconMap.get(character.type)}}" alt="character type icon">
+    <p>{{character.name}}</p>
+  </div>
+  <div class="action-description w-100" [@displayDescription]="displayDescription">
+    <span *ngIf="isBlocked">Incoming damage blocked! </span>
+    <span *ngIf="action==='Tackle'">{{character.name}} used tackle for {{damageDone}} damage. </span>
+    <span *ngIf="action==='Sword Attack'">{{character.name}} used a sword attack for {{damageDone}} damage. </span>
+
+    <span *ngIf="action==='Shoot'">{{character.name}} shot an arrow for {{damageDone}} damage. </span>
+    <span *ngIf="action==='Aim'">{{character.name}} aimed. 25% crit chance added! </span>
+    <span *ngIf="gaveCriticalStrike">Critical strike! </span>
+
+    <span *ngIf="isManaPassive">Extra mana restored! </span>
+    <span *ngIf="action==='Staff Attack'">{{character.name}} attacked with staff for {{damageDone}} damage. </span>
+    <span *ngIf="action==='Fireball'">{{character.name}} used fireball for {{damageDone}} damage. </span>
+
+    <span *ngIf="character.currentHealth === 0">{{character.name}} died! </span>
+  </div>
+
+</div>
